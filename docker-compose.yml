@@ -1,0 +1,53 @@
+version: "3.8"
+
+services:
+  postgresdb:
+    image: 'public.ecr.aws/docker/library/postgres:13.11'
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+            - /tmp/organization_management_backend_service:/var/lib/postgresql/data
+    expose:
+        - "5432"
+  api:
+        build:
+          context: .
+          dockerfile: Dockerfile
+        image: 'organization_management_backend_service:latest'
+        restart: unless-stopped
+        environment:
+            PROFILE: prod
+            AWS_DEFAULT_REGION: us-east-2
+        ports:
+            - "8000:8000"
+  local:
+        build:
+          context: .
+          dockerfile: Dockerfile
+        image: 'organization_management_backend_service:latest'
+        restart: unless-stopped
+        depends_on:
+          - postgresdb
+        environment:
+            PROFILE: local
+            SQLALCHEMY_DATABASE_URI: "postgresql://postgres:postgres@localhost:5432/postgres"
+            AWS_DEFAULT_REGION: us-east-2
+        ports:
+            - "8001:8001"
+  dev:
+        build:
+          context: .
+          dockerfile: Dockerfile
+        image: 'organization_management_backend_service:latest'
+        restart: unless-stopped
+        environment:
+            PROFILE: dev
+            AWS_DEFAULT_REGION: us-east-2
+        ports:
+            - "8002:8002"
+        command: ["poetry", "run", "uvicorn", "--app-dir", "src", "organization_management_backend_service.main:app", "--host", "0.0.0.0", "--port", "8002", "--workers", "2"]  # Dev command
