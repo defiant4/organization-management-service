@@ -49,24 +49,24 @@ Download from Python Official Website
 🐳 Docker Deployment
 Build and Run
 Production Deployment Commands
-# Stop any existing containers
+### Stop any existing containers
 - `make docker-stop`
 
-# Build Docker image
+### Build Docker image
 - `make docker-build`
 
-# Verify image is created
+### Verify image is created
 - `docker images`
 
-# Run in dev mode
+### Run in dev mode
 - `make docker-dev-run`
 
-# Run in production mode
+### Run in production mode
 - `make docker-run-prod`
 
-# Verify running containers
+### Verify running containers
 - `docker ps`
-# Stop Production Container
+### Stop Production Container
 - `make docker-stop-prod`
 
 🛡️ Security Notes
@@ -77,6 +77,7 @@ Never commit secrets or sensitive information to version control
 📦 Dependencies
 
 Managed via Poetry
+
 Core dependencies listed in pyproject.toml
 
 🚧 Development Workflow
@@ -101,9 +102,10 @@ Currently, there is only 1 active version of this project.
 
 * **Arnab Adhikari** - *Complete E2E Development*
 
-📄 License
+## 📄 License
 
 This project is currently not licensed and is free to use subject to clearance from the author.
 
 💬 Support
+
 For any queries or issues, please open a GitHub issue in the repository or contact arnabadhikari93@gmail.com
