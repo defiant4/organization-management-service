@@ -1,0 +1,8 @@
+[flake8]
+indent-size = 4
+ignore = F401,F403,F405,E999,E712
+exclude =
+    .git,
+    __pycache__,
+    tests
+max-line-length = 160
